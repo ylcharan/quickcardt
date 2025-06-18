@@ -10,7 +10,7 @@ export async function POST(request) {
 
     const { address, items } = await request.json();
 
-    if (!address || items.length) {
+    if (!address || items.length === 0 || !items) {
       return NextResponse.json({ success: false, message: "Invalid Data" });
     }
 
@@ -25,8 +25,8 @@ export async function POST(request) {
         userId,
         address,
         items,
-        amount: amount + Math.floor(amount * 0.02),
-        data: Date.now(),
+        amount: await (amount + Math.floor(amount * 0.02)),
+        date: Date.now(),
       },
     });
 
